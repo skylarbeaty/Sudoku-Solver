@@ -7,17 +7,20 @@ struct cell{ //one of the 81 spaces of the board, handles text updates and cell 
     public int num { // requires 1-9 values, 0 for empty
         set{//also update text
             _num = value;
+            
             if (num == 0)//leave blank for an empty
                 text.text = "";
             else //set text to new value
                 text.text = _num.ToString();
+            
+            text.color = (given) ? Color.black : new Color(0.41f, 0.01f, 0.46f);//Color(0.19f, 0.46f, 0.23f, 1f);//color the given values differently from guesses
         }
         get{
             return _num;
         }
     }
     private int _num;
-    //public bool given; // was this a given/clue value in the puzzle *not currently used
+    public bool given; // was this a given/clue value in the puzzle (used for text coloring)
     public Text text; //number display of this space in Unity UI
 }
 
@@ -46,7 +49,7 @@ public class board : MonoBehaviour
 
     void Start(){//This is called upon creation/program start
         InitCells();
-        SetAll(givenExample);
+        ResetBoard();
     }
 
     public void Set(int num, int row, int col){//sets space at position, to be accessed by solver
@@ -90,15 +93,27 @@ public class board : MonoBehaviour
                 int col = (i % 3) * 3 + j % 3; //example: middle cell is cell 4(j) in box 4(i) and is at cell[4,4], the cell bellow is cell 7(j) of box 4(i) and is cell[5,4]
                 cells[row,col].text = boxes[i].cells[j];
                 cells[row,col].num = 0;
+                cells[row,col].given = false;
             }
         }
+    }
+
+    public void ResetBoard()
+    {
+        SetAll(givenExample);
     }
 
     void SetAll(int[,] givens){//requires 9x9 array
         for(int i = 0; i < 9; i++){
             for(int j = 0; j < 9; j++){
+                if (givens[i,j] != 0)
+                    cells[i,j].given = true;
                 Set(givens[i,j],i,j);// 1 to 1 assign, givens will be set up for this
             }
         }
+    }
+
+    public void Quit(){
+        Application.Quit();
     }
 }
