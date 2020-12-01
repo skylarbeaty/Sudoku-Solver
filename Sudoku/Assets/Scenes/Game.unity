@@ -1880,6 +1880,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1934637326}
   - component: {fileID: 1934637327}
+  - component: {fileID: 1934637328}
   m_Layer: 5
   m_Name: board
   m_TagString: Untagged
@@ -1937,6 +1938,19 @@ MonoBehaviour:
   - {fileID: 1113820620}
   - {fileID: 1792448140}
   - {fileID: 945688547}
+--- !u!114 &1934637328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934637325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54c6c4c1d966ce0408b259dbbca04469, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myBoard: {fileID: 0}
 --- !u!1 &1973527962
 GameObject:
   m_ObjectHideFlags: 0
@@ -2007,7 +2021,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Reset
+  m_Text: Solve
 --- !u!222 &1973527965
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2045,12 +2059,12 @@ GameObject:
   - component: {fileID: 2086006428}
   - component: {fileID: 2086006427}
   m_Layer: 5
-  m_Name: ResetButton
+  m_Name: SolveButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2086006426
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2068,7 +2082,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 46.05, y: 123}
+  m_AnchoredPosition: {x: 55, y: 135}
   m_SizeDelta: {x: 92.86182, y: 50.02368}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &2086006427
@@ -2113,7 +2127,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2086006428}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1934637328}
+        m_TargetAssemblyTypeName: solver, Assembly-CSharp
+        m_MethodName: StartSolve
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2086006428
 MonoBehaviour:
   m_ObjectHideFlags: 0

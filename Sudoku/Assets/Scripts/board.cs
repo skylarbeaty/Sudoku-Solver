@@ -53,6 +53,36 @@ public class board : MonoBehaviour
         cells[row,col].num = num;
     }
 
+    public bool Valid(int num, int row, int col){ //can you put num at row,col?
+        //check same row
+        for (int i = 0; i < 9; i++)
+            if (cells[row, i].num == num)
+                return false;//if theres a match then this input is not valid
+
+        //check same column
+        for (int i = 0; i < 9; i++)
+            if (cells[i, col].num == num)
+                return false;
+
+        //check the same box
+        int boxRow = (row / 3) * 3;//find top left corner of this cells 3x3 box
+        int boxCol = (col / 3) * 3;//use int truncation to round down
+        for (int i = 0; i < 3; i++)
+            for(int j = 0; j < 3; j++)
+                if (cells[boxRow + i, boxCol + j].num == num)//check a 3x3 from an offset
+                    return false;
+
+        return true;//reaches here is there where no matches found anywhere
+    }
+
+    public (int, int) NextEmpty() { // returns the row,col postion of the next
+        for (int row = 0; row < 9; row++)
+            for(int col = 0; col < 9; col++)
+                if(cells[row,col].num == 0)
+                    return (row, col);
+        return (-1, -1);//represents a null value, reached when board is completely full
+    }
+
     void InitCells(){//assigns UI text elements to the correct cells on this board, inits to 0 (blank)
         for (int i = 0; i < boxes.Length; i++){
             for (int j = 0; j < boxes[i].cells.Length; j++){
