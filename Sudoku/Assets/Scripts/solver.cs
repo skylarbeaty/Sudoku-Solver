@@ -20,7 +20,7 @@ public class solver : MonoBehaviour
     bool Solve(){
         (int row, int col) pos = myBoard.NextEmpty();
         if (pos.row == -1) //null check, board is full
-            return true;//base case, will recusively return through ending function
+            return true;//base case, will recusively return through, ending function
         
         for (int i = 1; i <= 9; i++){//loop through all possible inputs
             if (myBoard.Valid(i, pos.row, pos.col)){
