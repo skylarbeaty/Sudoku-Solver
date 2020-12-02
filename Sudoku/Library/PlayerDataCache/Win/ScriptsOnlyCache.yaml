@@ -83,8 +83,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 196
       Script: {instanceID: 0}
-    - Class: 212
-      Script: {instanceID: 0}
     - Class: 213
       Script: {instanceID: 0}
     - Class: 222
@@ -595,4 +593,4 @@ ScriptsOnlyBuild:
   platform: 5
   scenePathNames:
   - Assets/Scenes/Game.unity
-  playerPath: F:/School/Fall2020/Artificial Intelligence/Project/git/Builds/pc_build_1/Sudoku.exe
+  playerPath: F:/School/Fall2020/Artificial Intelligence/Project/git/Sudoku-Solver/Sudoku/Builds/pc_build_2/Sudoku.exe

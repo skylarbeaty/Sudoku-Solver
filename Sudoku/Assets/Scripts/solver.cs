@@ -5,15 +5,18 @@ using UnityEngine.UI;
 
 public class solver : MonoBehaviour
 {
-    public board myBoard;//using a ref to board, rather than passing as param, because Solve is called from a UI element
+    [HideInInspector] public board myBoard;//using a ref to board, rather than passing as param, because Solve is called from a UI element
+    [Range (0.0f, 0.5f)]
+    public float waitTime = 0.2f;
     void Start()
     {
         myBoard = GetComponent<board>();//requires this script be on the same object (in Unity) as the board script
     }
 
     public void StartSolve(){ // Unity UI button access. Button system wants a void function.
+        float startTime = Time.realtimeSinceStartup;
         if (Solve())
-            print("solved");
+            print("solved in: " + ((Time.realtimeSinceStartup - startTime) * 1000).ToString() + "ms");
         else
             print("ERROR: could not solve");
     }
@@ -40,7 +43,6 @@ public class solver : MonoBehaviour
         StartCoroutine(SlowSolve());
     }
     IEnumerator SlowSolve(){//mimic of above algo, but made without recursion so that it could be slowed down for viewing
-        float waitTime = 0.2f;
         (int row, int col) pos = myBoard.NextEmpty();
         Stack<(int num, int row, int col)> callStack = new Stack<(int num, int row, int col)>();//emulates recursive backtracking
         int iStart = 1; //first number to check for the cell. needed to mimic recursion
@@ -55,7 +57,7 @@ public class solver : MonoBehaviour
                     (int num, int row, int col) prev = callStack.Pop(); // get the previous cell
                     iStart = prev.num + 1; // start where it left off on this cell
                     pos = (prev.row, prev.col); // set current pos to prev pos
-                    yield return new WaitForSeconds(waitTime);
+                    yield return new WaitForSeconds(waitTime);//pass control back to here after waitTime seconds
                     break;//back to while loop with previous position
                 }
                 if (myBoard.Valid(i, pos.row, pos.col)){

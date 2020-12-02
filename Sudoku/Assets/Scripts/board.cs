@@ -13,7 +13,7 @@ struct cell{ //one of the 81 spaces of the board, handles text updates and cell 
             else //set text to new value
                 text.text = _num.ToString();
             
-            text.color = (given) ? Color.black : new Color(0.41f, 0.01f, 0.46f);//Color(0.19f, 0.46f, 0.23f, 1f);//color the given values differently from guesses
+            text.color = (given) ? Color.black : new Color(0.41f, 0.01f, 0.46f);//color the given values differently from guesses
         }
         get{
             return _num;
@@ -47,6 +47,17 @@ public class board : MonoBehaviour
         {7,0,0,3,0,0,0,0,6},
     };
 
+    int[,] givenExampleAlt = new int[9,9]{//0's are blank spaces
+        {0,0,3,4,1,0,0,8,2},
+        {7,0,0,0,6,3,1,5,0},
+        {4,0,0,0,0,7,0,3,0},
+        {0,0,6,3,7,8,0,0,0},
+        {0,0,0,1,0,5,0,0,0},
+        {0,0,0,6,4,2,3,0,0},
+        {0,4,0,2,0,0,0,0,1},
+        {0,6,7,9,8,0,0,0,3},
+        {1,2,0,0,3,4,6,0,0},
+    };
     void Start(){//This is called upon creation/program start
         InitCells();
         ResetBoard();
@@ -100,7 +111,7 @@ public class board : MonoBehaviour
 
     public void ResetBoard()
     {
-        SetAll(givenExample);
+        SetAll(givenExampleAlt);
     }
 
     void SetAll(int[,] givens){//requires 9x9 array

@@ -960,7 +960,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1396932942342164404, guid: 3127b4d413a9ba94896a251cd14ac382, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.000015258789
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1396932942342164404, guid: 3127b4d413a9ba94896a251cd14ac382, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1332,7 +1332,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1396932942342164404, guid: 3127b4d413a9ba94896a251cd14ac382, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000015258789
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1396932942342164404, guid: 3127b4d413a9ba94896a251cd14ac382, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2009,7 +2009,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1396932942342164404, guid: 3127b4d413a9ba94896a251cd14ac382, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000015258789
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1396932942342164404, guid: 3127b4d413a9ba94896a251cd14ac382, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2186,7 +2186,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1396932942342164404, guid: 3127b4d413a9ba94896a251cd14ac382, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000015258789
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1396932942342164404, guid: 3127b4d413a9ba94896a251cd14ac382, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2581,6 +2581,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myBoard: {fileID: 0}
+  waitTime: 0.1
 --- !u!1 &1973527962
 GameObject:
   m_ObjectHideFlags: 0
