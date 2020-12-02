@@ -154,7 +154,7 @@ ScriptsOnlyBuild:
     className: Scrollbar
   - hash:
       serializedVersion: 2
-      Hash: c992e06205c02be0e6e9cb0d0229c3e1
+      Hash: 63864ec96eacf31a19b569734f177773
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: solver
@@ -593,4 +593,4 @@ ScriptsOnlyBuild:
   platform: 5
   scenePathNames:
   - Assets/Scenes/Game.unity
-  playerPath: F:/School/Fall2020/Artificial Intelligence/Project/git/Sudoku-Solver/Sudoku/Builds/pc_build_2/Sudoku.exe
+  playerPath: F:/School/Fall2020/Artificial Intelligence/Project/git/Sudoku-Solver/Sudoku/Builds/pc_build_3/Sudoku.exe

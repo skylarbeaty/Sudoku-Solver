@@ -780,6 +780,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -0.2800007
       objectReference: {fileID: 0}
+    - target: {fileID: 5324200885301878603, guid: 036ddc9b21149804db2ebc6d61806040, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5917415055045468270, guid: 036ddc9b21149804db2ebc6d61806040, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6575585598819866306, guid: 036ddc9b21149804db2ebc6d61806040, type: 3}
       propertyPath: m_Name
       value: cell 1,1
