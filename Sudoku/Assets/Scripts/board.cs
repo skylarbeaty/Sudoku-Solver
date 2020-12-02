@@ -7,19 +7,36 @@ struct cell{ //one of the 81 spaces of the board, handles text updates and cell 
     public int num { // requires 1-9 values, 0 for empty
         set{//also update text
             _num = value;
-            
-            if (num == 0)//leave blank for an empty
-                text.text = "";
-            else //set text to new value
+
+            if (num != 0){ //update the number for non-empty
+                text.color = (given) ? Color.black : new Color(0.41f, 0.01f, 0.46f);//color the given values differently from guesses
                 text.text = _num.ToString();
-            
-            text.color = (given) ? Color.black : new Color(0.41f, 0.01f, 0.46f);//color the given values differently from guesses
+            }
+            else { //activate contraint display
+                // text.text = ""; //for no display for empty
+                text.text = _contraintsCount.ToString();
+                text.color = Color.red;
+            }
         }
         get{
             return _num;
         }
     }
+    public int contraintsCount{
+        set{
+            _contraintsCount = value;
+
+            if (num == 0){//update display
+                text.text = _contraintsCount.ToString();
+                text.color = Color.red;
+            }
+        }
+        get{
+            return _contraintsCount;
+        }
+    }
     private int _num;
+    public int _contraintsCount;//number of non-empties in the same column row and box. The higher this number, the less options for input
     public bool given; // was this a given/clue value in the puzzle (used for text coloring)
     public Text text; //number display of this space in Unity UI
 }
@@ -65,6 +82,27 @@ public class board : MonoBehaviour
 
     public void Set(int num, int row, int col){//sets space at position, to be accessed by solver
         cells[row,col].num = num;
+        UpdateContraints((num != 0), row, col);
+    }
+    
+    void UpdateContraints(bool addTo, int row, int col){//update the contraits of cells that are affected by this cell changing
+        //check same row
+        for (int i = 0; i < 9; i++)
+            if (i != col)//updates only on ones that are empty, or might be empty again if it backtracks (so all non-given)
+                cells[row, i].contraintsCount += (addTo) ? 1 : -1; //add or subtract from count
+
+        //check same column
+        for (int i = 0; i < 9; i++)
+            if (i != row)//avoids updating the input cell
+                cells[i, col].contraintsCount += (addTo) ? 1 : -1;
+
+        //check the same box
+        int boxRow = (row / 3) * 3;//find top left corner of this cells 3x3 box
+        int boxCol = (col / 3) * 3;//use int truncation to round down
+        for (int i = 0; i < 3; i++)
+            for(int j = 0; j < 3; j++)
+                if (!(row == boxRow + i || col == boxCol + j))//check a 3x3 from an offset, avoiding ones in already updated
+                    cells[boxRow + i, boxCol + j].contraintsCount += (addTo) ? 1 : -1;
     }
 
     public bool Valid(int num, int row, int col){ //can you put num at row,col?
@@ -90,11 +128,15 @@ public class board : MonoBehaviour
     }
 
     public (int, int) NextEmpty() { // returns the row,col postion of the next
+        (int, int) ret = (-1 , -1);//-1 represents a null value
+        int highest = -10000;
         for (int row = 0; row < 9; row++)
             for(int col = 0; col < 9; col++)
-                if(cells[row,col].num == 0)
-                    return (row, col);
-        return (-1, -1);//represents a null value, reached when board is completely full
+                if(cells[row,col].num == 0 && cells[row,col].contraintsCount > highest){//search for cell with most constraints, for least backtracking
+                    highest = cells[row,col].contraintsCount;
+                    ret = (row, col);
+                }
+        return ret;
     }
 
     void InitCells(){//assigns UI text elements to the correct cells on this board, inits to 0 (blank)
@@ -105,21 +147,24 @@ public class board : MonoBehaviour
                 cells[row,col].text = boxes[i].cells[j];
                 cells[row,col].num = 0;
                 cells[row,col].given = false;
+                cells[row,col].contraintsCount = 0;
             }
         }
     }
 
     public void ResetBoard()
     {
+        InitCells();
         SetAll(givenExampleAlt);
     }
 
     void SetAll(int[,] givens){//requires 9x9 array
         for(int i = 0; i < 9; i++){
             for(int j = 0; j < 9; j++){
-                if (givens[i,j] != 0)
+                if (givens[i,j] != 0){//only set givens because of constraint updates
                     cells[i,j].given = true;
-                Set(givens[i,j],i,j);// 1 to 1 assign, givens will be set up for this
+                    Set(givens[i,j],i,j);// 1 to 1 assign, givens will be set up for this
+                }
             }
         }
     }

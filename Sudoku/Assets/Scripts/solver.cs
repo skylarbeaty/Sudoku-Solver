@@ -15,8 +15,17 @@ public class solver : MonoBehaviour
 
     public void StartSolve(){ // Unity UI button access. Button system wants a void function.
         float startTime = Time.realtimeSinceStartup;
-        if (Solve())
-            print("solved in: " + ((Time.realtimeSinceStartup - startTime) * 1000).ToString() + "ms");
+        // if (Solve())
+        //     print("solved in: " + ((Time.realtimeSinceStartup - startTime) * 1000).ToString() + "ms");
+        if (Solve()){
+            for (int i = 0; i < 999; i++){
+                myBoard.ResetBoard();
+                Solve();
+            }
+            float time = (Time.realtimeSinceStartup - startTime);
+            print("solved 1000 times in: " + (time * 1000).ToString() + "ms. "
+                    + "average time: " + (time * 1).ToString() + "ms");
+        }
         else
             print("ERROR: could not solve");
     }
